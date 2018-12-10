@@ -137,7 +137,32 @@ public class PictureTester
   }
   
   /** Method to test edgeDetection */
-  public static void testEdgeDetection()
+public void edgeDetection(int edgeDist)
+  {
+    Pixel leftPixel = null;
+    Pixel rightPixel = null;
+    Pixel topPixel = null;
+    Pixel bottomPixel = null;
+    
+    Pixel[][] pixels = this.getPixels2D();
+    for (int row = 0; row < pixels.length - 1; row++)
+    {
+      for (int col = 0; 
+           col < pixels[0].length-1; col++)
+      {
+        leftPixel = pixels[row][col];
+        rightPixel = pixels[row][col+1];
+        topPixel = pixels[row][col];
+        bottomPixel = pixels[row + 1][col];
+        if (leftPixel.colorDistance(rightPixel.getColor()) > edgeDist ||
+            topPixel.colorDistance(bottomPixel.getColor()) > edgeDist)
+          leftPixel.setColor(Color.BLACK);
+        else
+          leftPixel.setColor(Color.WHITE);
+      }
+    }
+  }
+  public static void  testEdgeDetection()
   {
     Picture swan = new Picture("swan.jpg");
     swan.explore();
@@ -145,10 +170,10 @@ public class PictureTester
     swan.explore();
   }
   
-  public static void testEdgeDetection2()
+  public static testEdgeDetection2()
   {
       Picture swan = new Picture("swan.jpg");
-      //swan.explore();
+      swan.explore();
       swan.edgeDetection2(30);
       swan.explore();
   }
@@ -176,10 +201,10 @@ public class PictureTester
     //testMirrorArms();
     //testMirrorGull();
     //testMirrorDiagonal();
-    testCollage();
+    //testCollage();
     //testCopy();
     //testmyCollage();
-    //testEdgeDetection();
+    testEdgeDetection();
     //testEdgeDetection2();
     //testChromakey();
     //testEncodeAndDecode();
